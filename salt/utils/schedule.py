@@ -846,7 +846,9 @@ class Schedule(object):
                 for key, val in six.iteritems(ret):
                     kwargs['__pub_{0}'.format(key)] = val
 
-            ret['return'] = self.functions[func](*args, **kwargs)
+            # Adding __context__ as part of the return because its value is always empty
+            ret['return'], ctx = self.functions[func](*args, **kwargs)
+            self.functions.pack['__context__'] = ctx
 
             data_returner = data.get('returner', None)
             if data_returner or self.schedule_returner:

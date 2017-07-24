@@ -596,7 +596,7 @@ def apply_(mods=None,
     '''
     if mods:
         return sls(mods, **kwargs)
-    return highstate(**kwargs)
+    return (highstate(**kwargs), __context__)
 
 
 def request(mods=None,
